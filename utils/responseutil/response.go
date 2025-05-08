@@ -33,8 +33,8 @@ func (u *ResponseUtil) Success(c *fiber.Ctx, message string, data interface{}) e
 }
 
 func (u *ResponseUtil) BadRequest(c *fiber.Ctx, message string) error {
-	return c.Status(fiber.StatusBadGateway).JSON(fiber.Map{
-		"status":  fiber.StatusBadGateway,
+	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+		"status":  fiber.StatusBadRequest,
 		"message": message,
 	})
 }
