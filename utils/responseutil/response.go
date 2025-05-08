@@ -3,19 +3,30 @@ package responseutil
 import "github.com/gofiber/fiber/v2"
 
 type IResponseUtil interface {
+	HttpResponse(status int, message string) *HttpResponse
+
 	Create(c *fiber.Ctx, message string, data interface{}) error
 	Success(c *fiber.Ctx, message string, data interface{}) error
 
-	InternalServer(c *fiber.Ctx, message string) error
-	BadRequest(c *fiber.Ctx, message string) error
-	Unauthorized(c *fiber.Ctx, message string) error
-	NotFound(c *fiber.Ctx, message string) error
+	Errors(c *fiber.Ctx, statusCode int, message string) error
 }
 
 type ResponseUtil struct{}
 
 func NewResponseUtil() IResponseUtil {
 	return &ResponseUtil{}
+}
+
+type HttpResponse struct {
+	Status  int    `json:"status"`
+	Message string `json:"message"`
+}
+
+func (u *ResponseUtil) HttpResponse(status int, message string) *HttpResponse {
+	return &HttpResponse{
+		Status:  status,
+		Message: message,
+	}
 }
 
 func (u *ResponseUtil) Create(c *fiber.Ctx, message string, data interface{}) error {
@@ -32,30 +43,9 @@ func (u *ResponseUtil) Success(c *fiber.Ctx, message string, data interface{}) e
 	})
 }
 
-func (u *ResponseUtil) BadRequest(c *fiber.Ctx, message string) error {
-	return c.Status(fiber.StatusBadGateway).JSON(fiber.Map{
-		"status":  fiber.StatusBadGateway,
-		"message": message,
-	})
-}
-
-func (u *ResponseUtil) InternalServer(c *fiber.Ctx, message string) error {
-	return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-		"status":  fiber.StatusInternalServerError,
-		"message": message,
-	})
-}
-
-func (u *ResponseUtil) Unauthorized(c *fiber.Ctx, message string) error {
-	return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-		"status":  fiber.StatusUnauthorized,
-		"message": message,
-	})
-}
-
-func (u *ResponseUtil) NotFound(c *fiber.Ctx, message string) error {
-	return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
-		"status":  fiber.StatusNotFound,
+func (u *ResponseUtil) Errors(c *fiber.Ctx, statusCode int, message string) error {
+	return c.Status(statusCode).JSON(fiber.Map{
+		"status":  statusCode,
 		"message": message,
 	})
 }
