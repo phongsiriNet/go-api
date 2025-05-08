@@ -2,6 +2,7 @@ package examplehandler
 
 import (
 	"go-api/pkg/service/examplesvc"
+	"go-api/utils/responseutil"
 
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
@@ -13,15 +14,20 @@ type IExampleHandler interface {
 
 type ExampleHandler struct {
 	ExampleService examplesvc.IExampleService
+	Response       responseutil.IResponseUtil
 }
 
 func NewExampleHandler(dbconn *gorm.DB) IExampleHandler {
 	return &ExampleHandler{
 		ExampleService: examplesvc.NewExampleServiced(dbconn),
+		Response:       responseutil.NewResponseUtil(),
 	}
 }
 
 func (h *ExampleHandler) Example(c *fiber.Ctx) error {
-	example := h.ExampleService.Example()
-	return c.Status(fiber.StatusOK).JSON(example)
+	example, err := h.ExampleService.Example()
+	if err != nil {
+		return h.Response.Errors(c, err.Status, err.Message)
+	}
+	return h.Response.Success(c, "success", example)
 }
