@@ -7,6 +7,8 @@ import (
 	"log"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/joho/godotenv"
 )
 
@@ -27,6 +29,12 @@ func main() {
 	}
 
 	app := fiber.New()
+	app.Use(cors.New())
+	app.Use(logger.New(logger.Config{
+		Format:     "[${time}] - [${ip}]:${port} ${status} - ${method} ${path}\n",
+		TimeFormat: "02-Jan-2006 : 15:04:05",
+		TimeZone:   "Asia/Bangkok",
+	}))
 
 	routes.InitRoutes(app, db)
 
