@@ -6,6 +6,7 @@ import (
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 func InitDatabase() (*gorm.DB, error) {
@@ -18,7 +19,9 @@ func InitDatabase() (*gorm.DB, error) {
 		config.PORT,
 		config.DATABASE)
 
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Info),
+	})
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect to the database: %v", err)
 	}
@@ -33,6 +36,9 @@ func InitDatabase() (*gorm.DB, error) {
 	if err := sqlDB.Ping(); err != nil {
 		return nil, fmt.Errorf("could not connect to the database: %v", err)
 	}
+	fmt.Println("connect database succesfully")
+	fmt.Println("DB host:", config.HOST)
+	fmt.Println("DB name:", config.DATABASE)
 
 	return db, nil
 }
