@@ -7,6 +7,6 @@ import (
 type Product struct {
 	gorm.Model
 	Name  string `gorm:"unique;not null;default:Unknown"`
-	Price uint
+	Price float64
 	Stock uint
 }
