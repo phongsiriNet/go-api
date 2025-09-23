@@ -7,8 +7,8 @@ type ProductRequest struct {
 }
 
 type ProductResponse struct {
-	ID    uint    `json:"product id"`
-	Name  string  `json:"name"`
-	Price float64 `json:"price"`
-	Stock int     `json:"stock"`
+	ProductID uint    `json:"product id"`
+	Name      string  `json:"name"`
+	Price     float64 `json:"price"`
+	Stock     int     `json:"stock"`
 }
