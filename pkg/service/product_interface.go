@@ -4,7 +4,7 @@ import (
 	"go-api/dto"
 )
 
-type ProductService interface {
+type IProductService interface {
 	CreateProductSVC(*dto.ProductRequest) (*dto.ProductResponse, error)
 	GetProduct(uint) (*dto.ProductResponse, error)
 	GetProducts() ([]dto.ProductResponse, error)
