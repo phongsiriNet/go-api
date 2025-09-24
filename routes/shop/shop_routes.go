@@ -7,6 +7,10 @@ import (
 )
 
 func ProductRoute(api fiber.Router, proHandler handler.IProductHandler) {
-	api.Group("/product").
-		Get("/All", proHandler.GetProducts)
+	apiGroup := api.Group("/product")
+	apiGroup.Get("/All", proHandler.GetProducts)
+	apiGroup.Get("/:id", proHandler.GetProduct)
+	apiGroup.Post("/createProduct", proHandler.CreateProduct)
+	apiGroup.Put("/updateProduct/:id", proHandler.UpdateProduct)
+	apiGroup.Delete("/:id", proHandler.DeleteProduct)
 }
