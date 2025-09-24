@@ -12,3 +12,13 @@ type ProductResponse struct {
 	Price     float64 `json:"price"`
 	Stock     int     `json:"stock"`
 }
+
+type UserRequest struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Role     string `json:"role"`
+}
+
+type UserResponse struct {
+	Jwt string `json:"jwt"`
+}

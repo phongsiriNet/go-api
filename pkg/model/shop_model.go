@@ -10,3 +10,9 @@ type Product struct {
 	Price float64
 	Stock uint
 }
+type User struct {
+	ID       uint   `gorm:"colcumn:user_id;autoIncreasment"`
+	Username string `gorm:"not null;unique"`
+	Password string
+	Role     string
+}

@@ -9,3 +9,8 @@ type IProduct interface {
 	UpdateProduct(uint, *model.Product) (*model.Product, error)
 	DeleteProduct(uint) error
 }
+
+type IUser interface {
+	CreateUser(*model.User) (*model.User, error)
+	GetUser() (*model.User, error)
+}
