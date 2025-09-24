@@ -10,5 +10,5 @@ import (
 func InitShopRoutes(app *fiber.App, proHand handler.IProductHandler) {
 	api := app.Group("shop")
 
-	shop.ProductRoute(api, proHand)
+	shop.ProductRoutes(api, proHand)
 }

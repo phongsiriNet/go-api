@@ -6,7 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func ProductRoute(api fiber.Router, proHandler handler.IProductHandler) {
+func ProductRoutes(api fiber.Router, proHandler handler.IProductHandler) {
 	apiGroup := api.Group("/product")
 	apiGroup.Get("/All", proHandler.GetProducts)
 	apiGroup.Get("/:id", proHandler.GetProduct)
