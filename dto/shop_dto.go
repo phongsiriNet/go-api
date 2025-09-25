@@ -14,11 +14,7 @@ type ProductResponse struct {
 }
 
 type UserRequest struct {
-	Username string `json:"username"`
+	Email    string `json:"email"`
 	Password string `json:"password"`
 	Role     string `json:"role"`
-}
-
-type UserResponse struct {
-	Jwt string `json:"jwt"`
 }

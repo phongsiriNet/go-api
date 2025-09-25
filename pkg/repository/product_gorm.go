@@ -54,7 +54,7 @@ func (r *productRepository) UpdateProduct(id uint, product *model.Product) (*mod
 	if product.Price != 0 {
 		updateData["Price"] = product.Price
 	}
-	if product.Stock != 0 {
+	if product.Stock >= 0 {
 		updateData["Stock"] = product.Stock
 	}
 

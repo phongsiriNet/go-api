@@ -99,6 +99,6 @@ func (h *productHandler) DeleteProduct(c *fiber.Ctx) error {
 //         "data":    data,
 //     })
 // }
-
+//====================================================================================================
 // resp := HttpResponse{Status: 200, Message: "Deleted successfully"}
 // return c.Status(resp.Status).JSON(resp)

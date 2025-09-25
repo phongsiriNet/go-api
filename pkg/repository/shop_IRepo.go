@@ -11,6 +11,6 @@ type IProduct interface {
 }
 
 type IUser interface {
-	CreateUser(*model.User) (*model.User, error)
+	CreateUser(*model.User) error
 	GetUser(string) (*model.User, error)
 }

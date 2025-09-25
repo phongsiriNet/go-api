@@ -16,13 +16,22 @@ func NewProductService(productRepo repository.IProduct) IProductService {
 }
 
 func (s *productService) CreateProductSVC(product *dto.ProductRequest) (*dto.ProductResponse, error) {
-	newProduct := model.Product{Name: product.Name, Price: product.Price, Stock: uint(product.Stock)}
+	newProduct := model.Product{
+		Name:  product.Name,
+		Price: product.Price,
+		Stock: product.Stock,
+	}
 	result, err := s.productRepo.CreateProduct(&newProduct)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
-	proResponse := dto.ProductResponse{ProductID: result.ID, Name: result.Name, Price: result.Price, Stock: int(result.Stock)}
+	proResponse := dto.ProductResponse{
+		ProductID: result.ID,
+		Name:      result.Name,
+		Price:     result.Price,
+		Stock:     result.Stock,
+	}
 	return &proResponse, nil
 }
 
@@ -62,7 +71,11 @@ func (s *productService) GetProducts() ([]dto.ProductResponse, error) {
 }
 
 func (s *productService) UpdateProductSVC(id uint, updateProduct *dto.ProductRequest) (*dto.ProductResponse, error) {
-	updatePro := model.Product{Name: updateProduct.Name, Price: updateProduct.Price, Stock: uint(updateProduct.Stock)}
+	updatePro := model.Product{
+		Name:  updateProduct.Name,
+		Price: updateProduct.Price,
+		Stock: updateProduct.Stock,
+	}
 	result, err := s.productRepo.UpdateProduct(id, &updatePro)
 	if err != nil {
 		log.Println(err)

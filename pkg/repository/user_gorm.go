@@ -14,20 +14,18 @@ type userRepository struct {
 func NewUserRepository(db *gorm.DB) IUser {
 	return &userRepository{db: db}
 }
-
-func (u *userRepository) CreateUser(user *model.User) (*model.User, error) {
+func (u *userRepository) CreateUser(user *model.User) error {
 	result := u.db.Create(user)
 	if result.Error != nil {
-		return nil, result.Error
+		return result.Error
 	}
 	fmt.Println(result.Statement.SQL.String())
-	return user, nil
+	return nil
 }
 
-func (u *userRepository) GetUser(username string) (*model.User, error) {
+func (u *userRepository) GetUser(email string) (*model.User, error) {
 	user := model.User{}
-	result := u.db.Where("username =?", username).First(&user)
-
+	result := u.db.Where("email = ?", email).First(&user)
 	if result.Error != nil {
 		return nil, result.Error
 	}

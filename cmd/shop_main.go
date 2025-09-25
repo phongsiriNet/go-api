@@ -8,6 +8,7 @@ import (
 	"go-api/pkg/service"
 	"go-api/routes"
 	"log"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
@@ -32,8 +33,15 @@ func main() {
 	proSVC := service.NewProductService(proRepo)
 	proHandler := handler.NewProductHandler(proSVC)
 
+	// user
+	userRepo := repository.NewUserRepository(db)
+	userSVC := service.NewUserSVC(userRepo, os.Getenv("JWT_SECRET_KEY"))
+	userHandler := handler.NewUserHandler(userSVC)
+
+	auth := service.NewjwtService(os.Getenv("JWT_SECRET_KEY"))
+
 	app := fiber.New()
-	routes.InitShopRoutes(app, proHandler)
+	routes.InitShopRoutes(app, auth, proHandler, userHandler)
 
 	app.Listen(":" + serverconfig.ServerConfig().PORT)
 
