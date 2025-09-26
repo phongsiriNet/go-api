@@ -12,9 +12,8 @@ import (
 func InitShopRoutes(app *fiber.App, jwtService service.IAuth, proHand handler.IProductHandler, userHand handler.IUserHandler) {
 	api := app.Group("shop")
 
-	protected := api.Group("/", middleware.JwtMiddleware(jwtService))
+	protected := api.Group("/product", middleware.JwtMiddleware(jwtService))
 	shop.ProductRoutes(protected, proHand)
-	shop.ProductRoutes(api, proHand)
 
 	shop.UserRoutes(api, userHand)
 }

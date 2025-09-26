@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"go-api/dto"
 	"go-api/pkg/service"
 	"go-api/utils/responseutil"
@@ -22,7 +23,8 @@ func NewUserHandler(userSrv service.IUserService) IUserHandler {
 
 func (u *userHandler) Register(c *fiber.Ctx) error {
 	req := dto.UserRequest{}
-	if err := c.BodyParser(req); err != nil {
+	if err := c.BodyParser(&req); err != nil {
+		fmt.Println(err)
 		return u.httpResponse.Errors(c, fiber.StatusBadRequest, "Invalid request body")
 	}
 	err := u.userSrv.RegisterSVC(&req)
@@ -34,7 +36,7 @@ func (u *userHandler) Register(c *fiber.Ctx) error {
 
 func (u *userHandler) Login(c *fiber.Ctx) error {
 	req := dto.UserRequest{}
-	if err := c.BodyParser(req); err != nil {
+	if err := c.BodyParser(&req); err != nil {
 		return u.httpResponse.Errors(c, fiber.StatusBadRequest, "Invalid request body")
 	}
 	jwt, err := u.userSrv.LoginSVC(&req)
