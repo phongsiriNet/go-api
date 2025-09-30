@@ -20,7 +20,7 @@ type IUserService interface {
 	LoginSVC(*dto.UserRequest) (string, error)
 }
 
-type IAuth interface {
+type IAuthService interface {
 	CreateJwt(*model.User) (string, error)
 	ValidateJwt(string) (*jwt.Token, error)
 }

@@ -11,7 +11,7 @@ import (
 
 type userService struct {
 	userRepo repository.IUser
-	auth     IAuth
+	auth     IAuthService
 	passUtil passwordutil.IPassword
 }
 

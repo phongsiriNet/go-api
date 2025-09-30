@@ -9,7 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func InitShopRoutes(app *fiber.App, jwtService service.IAuth, proHand handler.IProductHandler, userHand handler.IUserHandler) {
+func InitShopRoutes(app *fiber.App, jwtService service.IAuthService, proHand handler.IProductHandler, userHand handler.IUserHandler) {
 	api := app.Group("shop")
 
 	protected := api.Group("/product", middleware.JwtMiddleware(jwtService))

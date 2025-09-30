@@ -13,7 +13,7 @@ type jwtService struct {
 	secretKey string
 }
 
-func NewjwtService(secretKey string) IAuth {
+func NewjwtService(secretKey string) IAuthService {
 	return &jwtService{secretKey: secretKey}
 }
 

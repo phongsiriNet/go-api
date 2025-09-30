@@ -8,14 +8,16 @@ import (
 )
 
 func ProductRoutes(api fiber.Router, proHandler handler.IProductHandler) {
-	api.Get("/All", proHandler.GetProducts)
+	api.Get("/all", proHandler.GetProducts)
 	api.Get("/:id", proHandler.GetProduct)
-	api.Post("/createProduct", middleware.RoleMiddleware("admin"), proHandler.CreateProduct)
-	api.Put("/updateProduct/:id", middleware.RoleMiddleware("admin"), proHandler.UpdateProduct)
+	api.Post("/create-product", middleware.RoleMiddleware("admin"), proHandler.CreateProduct)
+	api.Put("/update-product/:id", middleware.RoleMiddleware("admin"), proHandler.UpdateProduct)
 	api.Delete("/:id", middleware.RoleMiddleware("admin"), proHandler.DeleteProduct)
 }
 func UserRoutes(api fiber.Router, userHangler handler.IUserHandler) {
 	apiGroup := api.Group("/user")
-	apiGroup.Post("Register", userHangler.Register)
-	apiGroup.Post("Login", userHangler.Login)
+	apiGroup.Post("register", userHangler.Register)
+	apiGroup.Post("login", userHangler.Login)
 }
+
+// createProduct
