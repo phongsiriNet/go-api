@@ -3,14 +3,14 @@ services:
     image: mysql:latest
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: Nn0808764566
-      MYSQL_DATABASE: shop
-      MYSQL_USER: root
-      MYSQL_PASSWORD: Nn0808764566
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_DATABASE: 
+      MYSQL_USER: 
+      MYSQL_PASSWORD: 
     volumes:
       - ./mysql_data:/var/lib/mysql
     ports:
-      - "3307:3306"
+      - "3306:3306"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -19,6 +19,6 @@ services:
       - db
     environment:
       PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: Nn0808764566
+      MYSQL_ROOT_PASSWORD: 
     ports:
       - "8080:80"
